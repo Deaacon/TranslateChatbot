@@ -1,6 +1,10 @@
+# cache data
 __pycache__
 .venv/
 .vscode/
-data/
-
+# processing data
+train.*
+train.bpe.*
+bpe_rules.*
+# configuration data
 conf.json
