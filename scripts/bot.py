@@ -43,10 +43,10 @@ def translate(message):
     
     model_input = bpe.process_line(text)
     with torch.no_grad():
-        translate_result = model.translate_lines([model_input])[0]
-
+        translate_result = model.translate_lines([model_input])[0][0]
+    translate_result = translate_result.replace('@@ ', '')
+    
     bot.send_message(message.from_user.id, translate_result)
     bot.register_next_step_handler(message, translate)
-
 
 bot.polling(none_stop=True, interval=0)
