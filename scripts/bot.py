@@ -40,8 +40,10 @@ def translate(message):
     text = message.text.strip().lower()
     text = re.sub('([.,!?()])', r' \1 ', text)
     text = re.sub('\s{2,}', ' ', text)
+    
     model_input = bpe.process_line(text)
-    translate_result = model.translate_lines([model_input])[0]
+    with torch.no_grad():
+        translate_result = model.translate_lines([model_input])[0]
 
     bot.send_message(message.from_user.id, translate_result)
     bot.register_next_step_handler(message, translate)
